@@ -13,6 +13,7 @@ const app = new App({
   await app.start(process.env.PORT || 3000);
 
   app.command('/remindme-add', reminderController.saveReminder);
+  app.command('/remindme-view', reminderController.getReminders);
 
   console.log('ReMindful app is running!');
 })();

@@ -16,4 +16,8 @@ const parseReminderCommand = (commandText) => {
     };
 }
 
-module.exports = {parseReminderCommand};
+function convertEpochToIST(epoch) {
+  return moment.tz(epoch * 1000, 'Asia/Kolkata').format('h:mm A DD/MM/YYYY');
+}
+
+module.exports = {parseReminderCommand, convertEpochToIST};
