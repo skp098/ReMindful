@@ -14,6 +14,8 @@ const app = new App({
 
   app.command('/remindme-add', reminderController.saveReminder);
   app.command('/remindme-view', reminderController.getReminders);
+  app.command('/remindme-update', reminderController.updateReminders);
+  app.command('/remindme-delete', reminderController.deleteReminder);
 
   console.log('ReMindful app is running!');
-})();
+});

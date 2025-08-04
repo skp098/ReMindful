@@ -60,4 +60,33 @@ const getReminders = async ({command, ack, say}) => {
   }
 }
 
-module.exports = {saveReminder, getReminders};
+const updateReminders = async ({command, ack, say}) => {
+  try {
+    await ack();
+    const {reminderId, updateObject} = helperFunctions.parseUpdateReminderCommand(command.text);
+    const updatedReminder = await Reminder.findByIdAndUpdate(
+      reminderId,
+      updateObject,
+      { upsert: false }
+    ).lean();
+
+    if (!updatedReminder) {
+      await say('Reminder not found.');
+    }
+    await say('Reminder updated successfully. :white_check_mark:');
+  } catch (err) {
+    await say(`Something went wrong while updating the reminder. ${err.message}`);
+  }
+}
+
+const deleteReminder = async ({command, ack, say}) => {
+  try {
+    await ack();``
+    await Reminder.deleteOne({_id: command.text});
+    await say('Reminder Deleted Successfully!');
+  } catch (err) {
+    await say(`Someting went went wrong! ${err.message}`);
+  }
+}
+
+module.exports = {saveReminder, getReminders, updateReminders, deleteReminder};
